@@ -1,5 +1,10 @@
 <template>
   <div class="catalog">
+    <router-link :to="{ name: 'cart', params: { cart_data: getCart } }">
+      <div class="catalog__link-to-cart">Cart: {{ getCart.length }}</div>
+    </router-link>
+
+    <h1 class="catalog__title">Catalog</h1>
     <div class="catalog__list">
       <catalog-item
         v-for="product in products.data"
@@ -20,7 +25,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["products"]),
+    ...mapGetters(["products", "getCart"]),
   },
   methods: {
     ...mapActions(["getProductsFromApi", "addToCart"]),
