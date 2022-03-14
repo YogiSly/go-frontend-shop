@@ -3,6 +3,14 @@ const cart = {
     cart: []
   },
   mutations: {
+    decrement(state, index) {
+      if (state.cart[index].quantity > 1) {
+        state.cart[index].quantity--
+      }
+    },
+    increment(state, index) {
+      state.cart[index].quantity++
+    },
     setCart(state, product) {
       if (state.cart.length) {
         let isProductExists = false;
@@ -24,6 +32,12 @@ const cart = {
     }
   },
   actions: {
+    decrement({ commit }, index) {
+      commit('decrement', index)
+    },
+    increment({ commit }, index) {
+      commit('increment', index)
+    },
     addToCart({ commit }, product) {
       commit('setCart', product)
     },

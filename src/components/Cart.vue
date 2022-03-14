@@ -12,7 +12,13 @@
       :key="item.article"
       :cart_item_data="item"
       @deleteFromCart="deleteFromCart(index)"
+      @increment="increment(index)"
+      @decrement="decrement(index)"
     />
+    <div class="cart__total">
+      <p class="cart__total-name">Total:</p>
+      <p>{{ cartTotalCost }} &#8381;</p>
+    </div>
   </div>
 </template>
 <script>
@@ -31,11 +37,24 @@ export default {
       },
     },
   },
+  computed: {
+    cartTotalCost() {
+      let result = [];
+      if (this.cart_data.length) {
+        for (let item of this.cart_data) {
+          result.push(item.price * item.quantity);
+        }
+        result = result.reduce(function (sum, el) {
+          return sum + el;
+        });
+        return result;
+      } else {
+        return (result = 0);
+      }
+    },
+  },
   methods: {
-    ...mapActions(["deleteFromCart"]),
-    // deleteFromCart(index) {
-    //   this.deleteFromCart(index);
-    // },
+    ...mapActions(["deleteFromCart", "increment", "decrement"]),
   },
 };
 </script>
